@@ -1,3 +1,28 @@
 page-start {
 
 }
+
+.turnCircle {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  background-color: black;
+}
+
+$controlAreaSize: 40%;
+.controlArea{
+  height: $controlAreaSize;
+}
+
+.controlArea ion-icon {
+  font-size: 2.5em;
+}
+
+.controlArea ion-fab{
+  right: 20px;
+  top: 20px;
+}
+
+.gameArea{
+  height: (100% - $controlAreaSize);
+}

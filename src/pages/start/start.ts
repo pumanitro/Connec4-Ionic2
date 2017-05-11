@@ -17,7 +17,7 @@ export class Start {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Start');
+
   }
 
 }
