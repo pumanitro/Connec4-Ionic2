@@ -26,3 +26,14 @@ $controlAreaSize: 40%;
 .gameArea{
   height: calc((100% - #{$controlAreaSize}) - 20px);
 }
+
+.gameArea{
+  ion-grid{
+    height: 100%;
+  }
+
+  ion-row{
+    height: calc(100% / 6);
+  }
+
+}

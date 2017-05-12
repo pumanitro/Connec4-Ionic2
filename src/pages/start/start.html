@@ -27,8 +27,8 @@
 
   <div class="gameArea">
     <ion-grid>
-      <ion-row>
-        <ion-col col-2 *ngFor="let colIndex of createRange(6)" id="colIndex">
+      <ion-row *ngFor="let rowIndex of createRange(6)" [attr.id]="'row-'+rowIndex">
+        <ion-col col-2 *ngFor="let colIndex of createRange(6)" [attr.id]="'row-'+rowIndex+'-col-'+colIndex">
           <circle [size]="'100%'" [color]="'lightgray'" [centered]="true"></circle>
         </ion-col>
       </ion-row>
