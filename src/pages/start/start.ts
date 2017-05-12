@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Circle } from './circle/circle';
 
 /**
  * Generated class for the Start page.

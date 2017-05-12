@@ -8,12 +8,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Start } from '../pages/start/start';
 
+import {Circle} from '../pages/start/circle/circle';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    Start
+    Start,
+    Circle
   ],
   imports: [
     BrowserModule,
