@@ -20,4 +20,12 @@ export class Start {
 
   }
 
+  createRange(number: number){
+    var items: number[] = [];
+    for(var i = 1; i <= number; i++){
+      items.push(i);
+    }
+    return items;
+  }
+
 }

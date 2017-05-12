@@ -7,7 +7,7 @@ import {Component, Input} from '@angular/core';
 export class Circle {
   @Input() size:string;
   @Input() color:string;
-  @Input() centered:boolean;
+  @Input() centered:boolean = true;
 
   constructor() {
   }
