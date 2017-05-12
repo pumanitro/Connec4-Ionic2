@@ -5,7 +5,7 @@ import {Component, Input} from '@angular/core';
   templateUrl: './circle.html'
 })
 export class Circle {
-  @Input() size:number;
+  @Input() size:string;
   @Input() color:string;
   @Input() centered:boolean;
 

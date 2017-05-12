@@ -22,11 +22,17 @@
     </ion-fab>
     <h2 text-center>TURN X</h2>
     <!--<div class="turnCircle"></div>-->
-    <circle [size]="200" [color]="'rgba(66, 127, 235, 0.9)'" [centered]="true"></circle>
+    <circle [size]="'200px'" [color]="'rgba(66, 127, 235, 0.9)'" [centered]="true"></circle>
   </div>
 
   <div class="gameArea">
-
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2>
+          <circle [size]="'100%'" [color]="'white'" [centered]="true"></circle>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 
 </ion-content>
