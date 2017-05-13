@@ -9,13 +9,15 @@ import { HomePage } from '../pages/home/home';
 import { Start } from '../pages/start/start';
 
 import {Circle} from '../pages/start/circle/circle';
+import {ColOperations} from '../pages/start/col-operations.directive';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     Start,
-    Circle
+    Circle,
+    ColOperations
   ],
   imports: [
     BrowserModule,

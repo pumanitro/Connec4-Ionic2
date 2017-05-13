@@ -1,6 +1,7 @@
-import {Component } from '@angular/core';
+import {Component, QueryList, ViewChildren} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {ColOperations} from './col-operations.directive';
+
+import { ColOperations } from './col-operations.directive';
 
 /**
  * Generated class for the Start page.
@@ -14,11 +15,17 @@ import {ColOperations} from './col-operations.directive';
 })
 export class Start {
 
+  @ViewChildren(ColOperations) circles: QueryList<ColOperations>;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-
+    const col = 4;
+    this.circles.forEach(cir => {
+      if(cir.colNumber == 4)
+        console.log(cir.elRef.nativeElement.style.backgroundColor = 'green');
+    });
   }
 
   createRange(number: number){

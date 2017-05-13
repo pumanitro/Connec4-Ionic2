@@ -1,4 +1,4 @@
-import {Directive, Input} from '@angular/core';
+import {Directive, ElementRef, Input} from '@angular/core';
 
 /**
  * Generated class for the ColOperations directive.
@@ -14,7 +14,7 @@ export class ColOperations {
   @Input() rowNumber: number;
   @Input() colNumber: number;
 
-  constructor() {
+  constructor(public elRef: ElementRef) {
   }
 
 }
