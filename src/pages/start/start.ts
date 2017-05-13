@@ -21,11 +21,6 @@ export class Start {
   }
 
   ionViewDidLoad() {
-    const col = 4;
-    this.circles.forEach(cir => {
-      if(cir.colNumber == 4)
-        console.log(cir.elRef.nativeElement.style.backgroundColor = 'green');
-    });
   }
 
   createRange(number: number){
@@ -34,6 +29,15 @@ export class Start {
       items.push(i);
     }
     return items;
+  }
+
+  animate(rowIndex:number, colIndex:number)
+  {
+    let selectedCol = this.circles.find(el => {
+      return el.rowNumber == rowIndex && el.colNumber == colIndex;
+    });
+
+    console.log(selectedCol);
   }
 
 }
