@@ -1,5 +1,6 @@
 import {Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {ColOperations} from './col-operations.directive';
 
 /**
  * Generated class for the Start page.
