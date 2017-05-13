@@ -17,6 +17,13 @@ export class Start {
 
   @ViewChildren(ColOperations) circles: QueryList<ColOperations>;
 
+  private player:number = 1;
+  private rowsNumber: number = 6;
+  private player1Color:string = "yellow";
+  private player2Color:string = "green";
+
+  private colLoad:number[] = new Array(this.rowsNumber).fill(0);
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -25,23 +32,27 @@ export class Start {
 
   createRange(number: number){
     var items: number[] = [];
-    for(var i = 1; i <= number; i++){
+    for(var i = 0; i < number; i++){
       items.push(i);
     }
     return items;
   }
 
-  animate(rowIndex:number, colIndex:number)
+  animate(rowIndex:number, column:number)
   {
-    let firstColCircle;
 
-    this.circles.forEach(el => {
+    if(this.colLoad[column] == this.rowsNumber) return;
 
-      if(el.rowNumber == rowIndex && el.colNumber == colIndex) firstColCircle = el.colNumber;
+    let row:number = (this.rowsNumber-1) - this.colLoad[column];
+    this.colLoad[column]++;
 
-    });
+    let cir = this.circles.find( el => (el.rowNumber == row && el.colNumber == column));
 
-    console.log(firstColCircle);
+    cir.elRef.nativeElement.children[0].children[0].style.backgroundColor = (this.player == 1 ? this.player1Color : this.player2Color);
+
+    this.player = (this.player == 1 ? 2 : 1);
+
+    //console.log(column);
   }
 
 }
