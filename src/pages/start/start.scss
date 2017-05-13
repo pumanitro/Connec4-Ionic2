@@ -40,3 +40,14 @@ $boardColor : #7a93c0;
   }
 
 }
+
+.fallenCircle{
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+
+  width: calc(100% - 5px);
+  height: calc(100% - 5px);
+  visibility: hidden;
+}

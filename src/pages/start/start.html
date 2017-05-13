@@ -29,6 +29,7 @@
     <ion-grid>
       <ion-row *ngFor="let rowIndex of createRange(6)">
         <ion-col col-2 *ngFor="let colIndex of createRange(6)" col-operations [rowNumber]="rowIndex" [colNumber]="colIndex" (click)="animate(rowIndex,colIndex)">
+          <circle class="fallenCircle" [size]="'calc(100% - 5px)'" [color]="'yellow'" *ngIf="rowIndex == 1"></circle>
           <circle [size]="'calc(100% - 5px)'" [color]="'lightgray'"></circle>
         </ion-col>
       </ion-row>
