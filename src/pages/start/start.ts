@@ -33,11 +33,15 @@ export class Start {
 
   animate(rowIndex:number, colIndex:number)
   {
-    let selectedCol = this.circles.find(el => {
-      return el.rowNumber == rowIndex && el.colNumber == colIndex;
+    let firstColCircle;
+
+    this.circles.forEach(el => {
+
+      if(el.rowNumber == rowIndex && el.colNumber == colIndex) firstColCircle = el.colNumber;
+
     });
 
-    console.log(selectedCol);
+    console.log(firstColCircle);
   }
 
 }
