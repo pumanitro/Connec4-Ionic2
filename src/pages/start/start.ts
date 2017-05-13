@@ -30,6 +30,10 @@ export class Start {
   ionViewDidLoad() {
   }
 
+  private playerColor(): string{
+    return this.player == 1 ? this.player1Color : this.player2Color;
+  }
+
   createRange(number: number){
     var items: number[] = [];
     for(var i = 0; i < number; i++){
@@ -48,7 +52,7 @@ export class Start {
 
     let cir = this.circles.find( el => (el.rowNumber == row && el.colNumber == column));
 
-    cir.elRef.nativeElement.children[0].children[0].style.backgroundColor = (this.player == 1 ? this.player1Color : this.player2Color);
+    cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.playerColor();
 
     this.player = (this.player == 1 ? 2 : 1);
 
