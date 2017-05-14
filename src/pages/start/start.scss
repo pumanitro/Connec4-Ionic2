@@ -39,6 +39,11 @@ $boardColor : #7a93c0;
     background-color: $boardColor;
   }
 
+  ion-col{
+    width: calc(100% / 7);
+    max-width: calc(100% / 7);
+  }
+
 }
 
 /*.fallenCircle{
