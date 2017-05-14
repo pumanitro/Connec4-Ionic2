@@ -32,9 +32,13 @@ export class Start {
   private player1Color:string = "yellow";
   private player2Color:string = "green";
   public nobodyColor:string = "#efefef";
+  public winColor:string = "blue";
+  public boardColor:string = "#7a93c0";
 
   private turnCounter:number = 1;
   private isNotOver: boolean = true;
+
+  private circlesArr: ColOperations[];
 
   private actualState: Owner[][] = [];
 
@@ -52,6 +56,8 @@ export class Start {
   ionViewDidLoad() {
 
     this.actualStateInit();
+
+    this.circlesArr = this.circles.toArray();
 
   }
 
@@ -73,6 +79,9 @@ export class Start {
     this.turnEl.nativeElement.textContent = `TURN ${this.turnCounter}`;
 
     this.circles.forEach(cir => {
+      //Clearing the background :
+      cir.elRef.nativeElement.style.backgroundColor =  this.boardColor;
+      //Clearing the circles:
       cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.nobodyColor;
     });
 
@@ -87,13 +96,16 @@ export class Start {
     return items;
   }
 
+  private calcPos(col,row): number {
+    return (row*this.colsNumber + col)
+  }
+
   isGameOver(r: number,c: number){
 
     let near = 0;
     let owner: Owner = this.actualState[c][r] ;
 
     let winningCir: ColOperations[] = [];
-
 
     // ****
     // <- ***r
@@ -102,7 +114,7 @@ export class Start {
       if(owner == this.actualState[i][r])
       {
         near++;
-        //winningCir.push()
+        winningCir.push(this.circlesArr[this.calcPos(i,r)]);
       }
       else break;
     }
@@ -110,11 +122,18 @@ export class Start {
     // -> r***
     for(let i=c+1;i<this.colsNumber;i++)
     {
-      if(owner == this.actualState[i][r]) near++;
+      if(owner == this.actualState[i][r]) {
+        near++;
+        winningCir.push(this.circlesArr[this.calcPos(i,r)]);
+      }
       else break;
     }
 
-    if(near == 3) return true;
+    if(near == 3) {
+      winningCir.push(this.circlesArr[this.calcPos(c,r)]);
+      return winningCir;
+    }
+    winningCir.length = 0;
 
     // *
     // *
@@ -128,7 +147,10 @@ export class Start {
     near = 0;
     for(let i=r-1;i>=0;i--)
     {
-      if(owner == this.actualState[c][i]) near++;
+      if(owner == this.actualState[c][i]) {
+        near++;
+        winningCir.push(this.circlesArr[this.calcPos(c,i)]);
+      }
       else break;
     }
 
@@ -138,11 +160,18 @@ export class Start {
     //    *
     for(let i=r+1;i<this.rowsNumber;i++)
     {
-      if(owner == this.actualState[c][i]) near++;
+      if(owner == this.actualState[c][i]) {
+        near++;
+        winningCir.push(this.circlesArr[this.calcPos(c,i)]);
+      }
       else break;
     }
 
-    if(near == 3) return true;
+    if(near == 3) {
+      winningCir.push(this.circlesArr[this.calcPos(c,r)]);
+      return winningCir;
+    }
+    winningCir.length = 0;
 
     // *
     //  *
@@ -156,7 +185,10 @@ export class Start {
     //    x      |
     let i = r-1;
     for(let j=c-1;j>=0;j--) {
-      if (owner == this.actualState[j][i]) near++;
+      if (owner == this.actualState[j][i]) {
+        near++;
+        winningCir.push(this.circlesArr[this.calcPos(j,i)]);
+      }
       else break;
       i--;
     }
@@ -168,12 +200,19 @@ export class Start {
     //    *      V
     i = r+1;
     for(let j=c+1;j<this.colsNumber;j++) {
-      if (owner == this.actualState[j][i]) near++;
+      if (owner == this.actualState[j][i]) {
+        near++;
+        winningCir.push(this.circlesArr[this.calcPos(j,i)]);
+      }
       else break;
       i++;
     }
 
-    if(near == 3) return true;
+    if(near == 3) {
+      winningCir.push(this.circlesArr[this.calcPos(c,r)]);
+      return winningCir;
+    }
+    winningCir.length = 0;
 
     //    *
     //   *
@@ -188,7 +227,10 @@ export class Start {
 
     i = r-1;
     for(let j=c+1;j<this.colsNumber;j++) {
-      if (owner == this.actualState[j][i]) near++;
+      if (owner == this.actualState[j][i]) {
+        near++;
+        winningCir.push(this.circlesArr[this.calcPos(j,i)]);
+      }
       else break;
       i--;
     }
@@ -200,12 +242,19 @@ export class Start {
 
     i = r+1;
     for(let j=c-1;j<this.colsNumber;j--) {
-      if (owner == this.actualState[j][i]) near++;
+      if (owner == this.actualState[j][i]) {
+        near++;
+        winningCir.push(this.circlesArr[this.calcPos(j,i)]);
+      }
       else break;
       i++;
     }
 
-    if(near == 3) return true;
+    if(near == 3) {
+      winningCir.push(this.circlesArr[this.calcPos(c,r)]);
+      return winningCir;
+    }
+    winningCir.length = 0;
 
     return false;
   }
@@ -225,7 +274,7 @@ export class Start {
 
       //Find exact circle which will be colored :
       //let cir = this.circles.find( el => (el.rowNumber == row && el.colNumber == column));
-      let cir:ColOperations = this.circles.toArray()[row*this.colsNumber + column];
+      let cir:ColOperations = this.circlesArr[this.calcPos(column,row)];
 
       //Color this circle :
       cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.playerColor();
@@ -233,7 +282,13 @@ export class Start {
       //Changed actual state object :
       this.actualState[column][row] = this.player;
       //Check if the game is over if yes stop the game :
-      if(this.isGameOver(row,column)) this.isNotOver = false;
+      let winningCir: ColOperations[] | false = this.isGameOver(row,column);
+      if(winningCir) {
+        this.isNotOver = false;
+        winningCir.forEach( cir => {
+          cir.elRef.nativeElement.style.backgroundColor = this.winColor;
+        });
+      }
 
       //Change actual player for another player :
       this.player = (this.player == 1 ? 2 : 1);
