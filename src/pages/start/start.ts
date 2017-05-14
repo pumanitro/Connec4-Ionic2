@@ -39,11 +39,15 @@ export class Start {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-
+  private actualStateInit(){
     for(let i=0;i<this.rowsNumber;i++){
       this.actualState.push(new Array(this.colsNumber).fill(0));
     }
+  }
+
+  ionViewDidLoad() {
+
+    this.actualStateInit();
 
   }
 
@@ -108,6 +112,8 @@ export class Start {
     //Color this circle :
     cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.playerColor();
 
+    //Changed actual state object :
+    this.actualState[row][column] = this.player;
     //Change actual player for another player :
     this.player = (this.player == 1 ? 2 : 1);
     //Increase turn counter :
