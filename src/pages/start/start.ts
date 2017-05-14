@@ -31,6 +31,7 @@ export class Start {
   private player1Color:string = "yellow";
   private player2Color:string = "green";
   private turnCounter:number = 1;
+  private isNotOver: boolean = true;
 
   private actualState: Owner[][] = [];
 
@@ -40,8 +41,8 @@ export class Start {
   }
 
   private actualStateInit(){
-    for(let i=0;i<this.rowsNumber;i++){
-      this.actualState.push(new Array(this.colsNumber).fill(0));
+    for(let i=0;i<this.colsNumber;i++){
+      this.actualState.push(new Array(this.rowsNumber).fill(0));
     }
   }
 
@@ -64,28 +65,61 @@ export class Start {
     return items;
   }
 
-  isGameOver(x,y){
+  isGameOver(r: number,c: number){
 
     let near = 0;
+    let owner: Owner = this.actualState[c][r] ;
 
     // ****
-    // <- ***x
-    for(let i=0;i<this.rowsNumber;i++)
+    // <- ***r
+    for(let i=c-1;i>=0;i--)
     {
-
+      if(owner == this.actualState[i][r]) near++;
+      else break;
     }
 
+    // -> r***
+    for(let i=c+1;i<this.colsNumber;i++)
+    {
+      if(owner == this.actualState[i][r]) near++;
+      else break;
+    }
+
+    if(near == 3) return true;
 
     // *
     // *
     // *
     // *
+
+    //    *
+    //    *
+    // ^  *
+    // |  r
+    near = 0;
+    for(let i=c-1;i>=0;i--)
+    {
+      if(owner == this.actualState[c][i]) near++;
+      else break;
+    }
+
+    // |  r
+    // V  *
+    //    *
+    //    *
+    for(let i=c+1;i<this.rowsNumber;i++)
+    {
+      if(owner == this.actualState[c][i]) near++;
+      else break;
+    }
+
+    if(near == 3) return true;
 
     // *
     //  *
     //   *
     //    *
-
+    //near = 0;
 
     //    *
     //   *
@@ -98,31 +132,35 @@ export class Start {
   animate(rowIndex:number, column:number)
   {
 
-    //If we click for collumn which is overloaded (have 6 colored circles) :
-    if(this.colLoad[column] == this.rowsNumber) return;
+    if(this.isNotOver)
+    {
+      //If we click for collumn which is overloaded (have 6 colored circles) :
+      if(this.colLoad[column] == this.rowsNumber) return;
 
-    //Calculate next row to put new circle:
-    let row:number = (this.rowsNumber-1) - this.colLoad[column];
-    //Increase colum load :
-    this.colLoad[column]++;
+      //Calculate next row to put new circle:
+      let row:number = (this.rowsNumber-1) - this.colLoad[column];
+      //Increase colum load :
+      this.colLoad[column]++;
 
-    //Find exact circle which will be colored :
-    let cir = this.circles.find( el => (el.rowNumber == row && el.colNumber == column));
+      //Find exact circle which will be colored :
+      let cir = this.circles.find( el => (el.rowNumber == row && el.colNumber == column));
 
-    //Color this circle :
-    cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.playerColor();
+      //Color this circle :
+      cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.playerColor();
 
-    //Changed actual state object :
-    this.actualState[row][column] = this.player;
-    //Change actual player for another player :
-    this.player = (this.player == 1 ? 2 : 1);
-    //Increase turn counter :
-    this.turnCounter++;
+      //Changed actual state object :
+      this.actualState[column][row] = this.player;
+      //Check if the game is over if yes stop the game :
+      if(this.isGameOver(row,column)) this.isNotOver = false;
 
-    //Show new turn number :
-    this.turnEl.nativeElement.textContent = `TURN ${this.turnCounter}`;
+      //Change actual player for another player :
+      this.player = (this.player == 1 ? 2 : 1);
+      //Increase turn counter :
+      this.turnCounter++;
 
-    //console.log(column);
+      //Show new turn number :
+      this.turnEl.nativeElement.textContent = `TURN ${this.turnCounter}`;
+    }
   }
 
 }
