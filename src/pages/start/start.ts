@@ -141,14 +141,66 @@ export class Start {
     //  *
     //   *
     //    *
-    //near = 0;
+    near = 0;
+
+    // *
+    //  *
+    //   *    <- ^
+    //    x      |
+    let i = r-1;
+    for(let j=c-1;j>=0;j--) {
+      if (owner == this.actualState[j][i]) near++;
+      else break;
+      i--;
+    }
+
+
+    // x
+    //  *
+    //   *    -> |
+    //    *      V
+    i = r+1;
+    for(let j=c+1;j<this.colsNumber;j++) {
+      if (owner == this.actualState[j][i]) near++;
+      else break;
+      i++;
+    }
+
+    if(near == 3) return true;
 
     //    *
     //   *
     //  *
     // *
+    near = 0;
 
+    //    *
+    //   *
+    //  *    -> ^
+    // x        |
 
+    i = r-1;
+    for(let j=c+1;j<this.colsNumber;j++) {
+      if (owner == this.actualState[j][i]) near++;
+      else break;
+      i--;
+    }
+
+    //    x
+    //   *
+    //  *    <- |
+    // *        V
+
+    i = r+1;
+    for(let j=c-1;j<this.colsNumber;j--) {
+      if (owner == this.actualState[j][i]) near++;
+      else break;
+      i++;
+    }
+
+    if(near == 3) return true;
+
+    return false;
   }
 
   animate(rowIndex:number, column:number)
