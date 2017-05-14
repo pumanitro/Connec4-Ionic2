@@ -92,11 +92,18 @@ export class Start {
     let near = 0;
     let owner: Owner = this.actualState[c][r] ;
 
+    let winningCir: ColOperations[] = [];
+
+
     // ****
     // <- ***r
     for(let i=c-1;i>=0;i--)
     {
-      if(owner == this.actualState[i][r]) near++;
+      if(owner == this.actualState[i][r])
+      {
+        near++;
+        //winningCir.push()
+      }
       else break;
     }
 
@@ -217,7 +224,8 @@ export class Start {
       this.colLoad[column]++;
 
       //Find exact circle which will be colored :
-      let cir = this.circles.find( el => (el.rowNumber == row && el.colNumber == column));
+      //let cir = this.circles.find( el => (el.rowNumber == row && el.colNumber == column));
+      let cir:ColOperations = this.circles.toArray()[row*this.colsNumber + column];
 
       //Color this circle :
       cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.playerColor();
