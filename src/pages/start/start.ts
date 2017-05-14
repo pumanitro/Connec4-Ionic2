@@ -9,6 +9,13 @@ import { ColOperations } from './col-operations.directive';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+
+export enum Owner{
+  Nobody,
+  Player1,
+  Player2
+}
+
 @Component({
   selector: 'page-start',
   templateUrl: 'start.html',
@@ -25,12 +32,19 @@ export class Start {
   private player2Color:string = "green";
   private turnCounter:number = 1;
 
+  private actualState: Owner[][] = [];
+
   private colLoad:number[] = new Array(this.colsNumber).fill(0);
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
+
+    for(let i=0;i<this.rowsNumber;i++){
+      this.actualState.push(new Array(this.colsNumber).fill(0));
+    }
+
   }
 
   private playerColor(): string{
@@ -44,6 +58,37 @@ export class Start {
       items.push(i);
     }
     return items;
+  }
+
+  isGameOver(x,y){
+
+    let near = 0;
+
+    // ****
+    // <- ***x
+    for(let i=0;i<this.rowsNumber;i++)
+    {
+
+    }
+
+
+    // *
+    // *
+    // *
+    // *
+
+    // *
+    //  *
+    //   *
+    //    *
+
+
+    //    *
+    //   *
+    //  *
+    // *
+
+
   }
 
   animate(rowIndex:number, column:number)
