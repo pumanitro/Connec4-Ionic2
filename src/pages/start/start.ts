@@ -60,6 +60,7 @@ export class Start {
   }
 
   resetGame(){
+    this.actualState.length = 0;
     this.actualStateInit();
 
     //Resetting the values :
@@ -118,7 +119,7 @@ export class Start {
     // ^  *
     // |  r
     near = 0;
-    for(let i=c-1;i>=0;i--)
+    for(let i=r-1;i>=0;i--)
     {
       if(owner == this.actualState[c][i]) near++;
       else break;
@@ -128,7 +129,7 @@ export class Start {
     // V  *
     //    *
     //    *
-    for(let i=c+1;i<this.rowsNumber;i++)
+    for(let i=r+1;i<this.rowsNumber;i++)
     {
       if(owner == this.actualState[c][i]) near++;
       else break;
