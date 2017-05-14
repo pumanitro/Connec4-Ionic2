@@ -28,8 +28,11 @@ export class Start {
   private player:number = 1;
   private rowsNumber: number = 6;
   public colsNumber:number = 7;
+
   private player1Color:string = "yellow";
   private player2Color:string = "green";
+  public nobodyColor:string = "#efefef";
+
   private turnCounter:number = 1;
   private isNotOver: boolean = true;
 
@@ -54,6 +57,24 @@ export class Start {
 
   private playerColor(): string{
     return this.player == 1 ? this.player1Color : this.player2Color;
+  }
+
+  resetGame(){
+    this.actualStateInit();
+
+    //Resetting the values :
+    this.player = 1;
+    this.turnCounter = 1;
+    this.colLoad = new Array(this.colsNumber).fill(0);
+    this.isNotOver = true;
+
+    //Changing the view :
+    this.turnEl.nativeElement.textContent = `TURN ${this.turnCounter}`;
+
+    this.circles.forEach(cir => {
+      cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.nobodyColor;
+    });
+
   }
 
   //for ngFor in view
