@@ -49,18 +49,26 @@ export class Start {
   animate(rowIndex:number, column:number)
   {
 
+    //If we click for collumn which is overloaded (have 6 colored circles) :
     if(this.colLoad[column] == this.rowsNumber) return;
 
+    //Calculate next row to put new circle:
     let row:number = (this.rowsNumber-1) - this.colLoad[column];
+    //Increase colum load :
     this.colLoad[column]++;
 
+    //Find exact circle which will be colored :
     let cir = this.circles.find( el => (el.rowNumber == row && el.colNumber == column));
 
+    //Color this circle :
     cir.elRef.nativeElement.children[0].children[0].style.backgroundColor =  this.playerColor();
 
+    //Change actual player for another player :
     this.player = (this.player == 1 ? 2 : 1);
+    //Increase turn counter :
     this.turnCounter++;
 
+    //Show new turn number :
     this.turnEl.nativeElement.textContent = `TURN ${this.turnCounter}`;
 
     //console.log(column);
