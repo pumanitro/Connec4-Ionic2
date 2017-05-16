@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { ColOperations } from './col-operations.directive';
 
+import {AlphaBeta} from './alpha-beta';
+
 /**
  * Generated class for the Start page.
  *
@@ -54,6 +56,8 @@ export class Start {
   }
 
   ionViewDidLoad() {
+
+    //let alphabetaConstructor = AlphaBeta();
 
     this.actualStateInit();
 
@@ -109,7 +113,7 @@ export class Start {
 
     // ****
     // <- ***r
-    for(let i=c-1;i>=0;i--)
+    for(let i=(c-1);i>=0;i--)
     {
       if(owner == this.actualState[i][r])
       {
@@ -120,7 +124,7 @@ export class Start {
     }
 
     // -> r***
-    for(let i=c+1;i<this.colsNumber;i++)
+    for(let i=(c+1);i<this.colsNumber;i++)
     {
       if(owner == this.actualState[i][r]) {
         near++;
@@ -241,7 +245,7 @@ export class Start {
     // *        V
 
     i = r+1;
-    for(let j=c-1;j<this.colsNumber;j--) {
+    for(let j=c-1;j>=0;j--) {
       if (owner == this.actualState[j][i]) {
         near++;
         winningCir.push(this.circlesArr[this.calcPos(j,i)]);
